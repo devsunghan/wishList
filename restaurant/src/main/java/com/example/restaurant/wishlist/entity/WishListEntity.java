@@ -1,4 +1,4 @@
-package com.example.restaurant.wishlist;
+package com.example.restaurant.wishlist.entity;
 
 import com.example.restaurant.db.MemoryDbEntity;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ public class WishListEntity extends MemoryDbEntity {
     private String title; // 음식명, 장소명
     private String category;
     private String address; // 주소
-    private String loadAddress; // 도로명
+    private String roadAddress; // 도로명
     private String homePageLink;
     private String imageLink;
     private boolean isVisit; // 방문 여부

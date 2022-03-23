@@ -1,7 +1,7 @@
 package com.example.restaurant.wishlist.repository;
 
-import com.example.restaurant.repository.WishListRepository;
-import com.example.restaurant.wishlist.WishListEntity;
+
+import com.example.restaurant.wishlist.dto.WishListDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class WishListRepositoryTest {
     private WishListRepository wishListRepository;
 
 
-    private WishListEntity create() {
-        var wishList = new WishListEntity();
+    private WishListDto create() {
+        var wishList = new WishListDto();
         wishList.setTitle("title");
         wishList.setCategory("category");
         wishList.setAddress("add");
-        wishList.setLoadAddress("load");
+        wishList.setRoadAddress("road");
         wishList.setHomePageLink("homepage");
         wishList.setImageLink("");
         wishList.setVisit(false);
@@ -31,8 +31,8 @@ public class WishListRepositoryTest {
 
     @Test
     public void saveTest() {
-        var wishListEntity = create();
-        var expected = wishListRepository.save(wishListEntity);
+        var wishListDto = create();
+        var expected = wishListRepository.save(wishListDto);
 
         Assertions.assertNotNull(expected);
         Assertions.assertEquals(1, expected.getIndex());
@@ -40,45 +40,45 @@ public class WishListRepositoryTest {
 
     @Test
     public void updateTest() {
-        var wishListEntity = create();
-        var expected = wishListRepository.save(wishListEntity);
+        var wishListDto = create();
+        var expected = wishListRepository.save(wishListDto);
 
         expected.setTitle("update test");
         var saveEntity = wishListRepository.save(expected);
 
         Assertions.assertEquals("update test", saveEntity.getTitle());
-        Assertions.assertEquals(1, wishListRepository.listAll().size());
+        Assertions.assertEquals(1, wishListRepository.findAll().size());
     }
 
 
     @Test
     public void deleteTest() {
-        var wishListEntity = create();
-        wishListRepository.save(wishListEntity);
+        var wishListDto = create();
+        wishListRepository.save(wishListDto);
 
         wishListRepository.deleteById(1);
 
-        int count = wishListRepository.listAll().size();
+        int count = wishListRepository.findAll().size();
 
         Assertions.assertEquals(0, count);
     }
 
     @Test
     public void listAllTest() {
-        var wishListEntity1 = create();
-        wishListRepository.save(wishListEntity1);
+        var wishListDto1 = create();
+        wishListRepository.save(wishListDto1);
 
-        var wishListEntity2 = create();
-        wishListRepository.save(wishListEntity2);
+        var wishListDto2 = create();
+        wishListRepository.save(wishListDto2);
 
-        int count = wishListRepository.listAll().size();
+        int count = wishListRepository.findAll().size();
         Assertions.assertEquals(2, count);
     }
 
     @Test
     public void findByIdTest() {
-        var wishListEntity = create();
-        wishListRepository.save(wishListEntity);
+        var wishListDto = create();
+        wishListRepository.save(wishListDto);
 
         var expected = wishListRepository.findById(1);
 
